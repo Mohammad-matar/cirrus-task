@@ -15,11 +15,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/username', function (Request $request) {
     return $request->user();
 });
 
 // Teachers ROUTE
 Route::group(['prefix' => 'teacher'], function () {
     Route::get('/', [TeacherController::class, 'getAll']);
+    Route::get('/{id}', [TeacherController::class, 'getById']);
+    Route::post('/', [TeacherController::class, 'create']);
+    Route::put('/{id}', [TeacherController::class, 'update']);
+    Route::delete('/{id}', [TeacherController::class, 'delete']);
+});
+
+//Students ROUTE
+Route::group(['prefix' => 'student'], function () {
+    Route::get('/', [TeacherController::class, 'getAll']);
+    // Route::get('/{id}', [TeacherController::class, 'getById']);
+    // Route::post('/', [TeacherController::class, 'create']);
+    // Route::put('/{id}', [TeacherController::class, 'update']);
+    // Route::delete('/{id}', [TeacherController::class, 'delete']);
 });
