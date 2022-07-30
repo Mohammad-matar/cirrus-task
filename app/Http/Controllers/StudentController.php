@@ -2,51 +2,53 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Teacher;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class TeacherController extends Controller
+
+class StudentController extends Controller
 {
-    //getall teachers
+    // GET All Students
     public function getAll()
     {
-        $teacher = Teacher::all();
+        $student = Student::all();
         $respond = [
             'status' => 200,
-            'message' => 'get all teachers successufully',
-            'data' => $teacher
+            'message' => 'get all student successufully',
+            'data' => $student
         ];
         return $respond;
     }
 
-    //Get Teacher by id
+    //Get Student By ID
     public function getById($id)
     {
-        $teacher = Teacher::find($id);
-        if (isset($teacher)) {
+        $student = Student::find($id);
+        if (isset($student)) {
             $respond = [
                 "status" => 200,
-                "data" => $teacher
+                "data" => $student
             ];
             return $respond;
         }
         return $respond = [
             "status" => 404,
-            "message" => "teach$teacher not found"
+            "message" => "student not found"
         ];
     }
 
-    // Add A New Teacher
+    // Add a new student
     public function create(Request $request)
     {
-        $teacher = new Teacher();
+        $student = new Student();
         $validation = Validator::make($request->all(), [
             'name' => 'required |string | max:255',
             'email' => 'required |string ',
             'password' => 'required |string ',
             'date_of_birth' => 'required |string ',
             'phone_number' => 'required |string ',
+            'class' => 'required |string ',
             'gender' => 'required |string ',
         ]);
 
@@ -58,34 +60,36 @@ class TeacherController extends Controller
             return $respond;
         }
 
-        $teacher->name =  $request->name;
-        $teacher->email =  $request->email;
-        $teacher->password =  $request->password;
-        $teacher->date_of_birth =  $request->date_of_birth;
-        $teacher->phone_number =  $request->phone_number;
-        $teacher->gender =  $request->gender;
+        $student->name =  $request->name;
+        $student->email =  $request->email;
+        $student->password =  $request->password;
+        $student->date_of_birth =  $request->date_of_birth;
+        $student->phone_number =  $request->phone_number;
+        $student->class = $request->class;
+        $student->gender =  $request->gender;
+        // $student->student_id = $request->student_id;
 
 
-        $teacher->save();
+        $student->save();
         return $respond = [
             'status' => 200,
-            'message' => 'New teacher is added',
-            'data' => $teacher
+            'message' => 'New student is added',
+            'data' => $student
         ];
     }
-
-    //Updating Teacher Info
+    //Updating stud$student Info
     public function update(Request $request, $id)
     {
-        $teacher = Teacher::find($id);
+        $student = Student::find($id);
 
-        if (isset($teacher)) {
+        if (isset($student)) {
             $validation = Validator::make($request->all(), [
                 'name' => 'required |string | max:255',
                 'email' => 'required |string ',
                 'password' => 'required |string ',
                 'date_of_birth' => 'required |string ',
                 'phone_number' => 'required |string ',
+                'class' => 'required |string ',
                 'gender' => 'required |string ',
             ]);
 
@@ -97,45 +101,45 @@ class TeacherController extends Controller
                 return $respond;
             };
 
-            $teacher->name =  $request->name;
-            $teacher->email =  $request->email;
-            $teacher->password =  $request->password;
-            $teacher->date_of_birth =  $request->date_of_birth;
-            $teacher->phone_number =  $request->phone_number;
-            $teacher->gender =  $request->gender;
+            $student->name =  $request->name;
+            $student->email =  $request->email;
+            $student->password =  $request->password;
+            $student->date_of_birth =  $request->date_of_birth;
+            $student->phone_number =  $request->phone_number;
+            $student->gender =  $request->gender;
 
-            $teacher->save();
+            $student->save();
 
 
 
             return $respond = [
                 'status' => 200,
-                'message' => 'the teacher updated',
-                'data' => $teacher,
+                'message' => 'the stud$student updated',
+                'data' => $student,
             ];
         }
         return $respond = [
             'status' => 404,
-            'message' => 'the teacher isnt updated',
+            'message' => 'the student isnt updated',
         ];
     }
 
-    //Delete a Teacher
+    //Delete a Student
     public function delete($id)
     {
-        $teacher = Teacher::find($id);
-        if (isset($teacher)) {
-            $teacher->delete();
+        $student = Student::find($id);
+        if (isset($student)) {
+            $student->delete();
             $respond = [
                 'status' => 200,
-                'message' => 'teacher is deleted',
+                'message' => 'student is deleted',
 
             ];
             return $respond;
         }
         return $respond = [
             'status' => 404,
-            'message' => 'the teacher isnt deleted',
+            'message' => 'the student isnt deleted',
         ];
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,9 +31,9 @@ Route::group(['prefix' => 'teacher'], function () {
 
 //Students ROUTE
 Route::group(['prefix' => 'student'], function () {
-    Route::get('/', [TeacherController::class, 'getAll']);
-    // Route::get('/{id}', [TeacherController::class, 'getById']);
-    // Route::post('/', [TeacherController::class, 'create']);
-    // Route::put('/{id}', [TeacherController::class, 'update']);
-    // Route::delete('/{id}', [TeacherController::class, 'delete']);
+    Route::get('/', [StudentController::class, 'getAll']);
+    Route::get('/{id}', [StudentController::class, 'getById']);
+    Route::post('/', [StudentController::class, 'create']);
+    Route::put('/{id}', [StudentController::class, 'update']);
+    Route::delete('/{id}', [StudentController::class, 'delete']);
 });
