@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeworkController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Http\Request;
@@ -36,4 +37,11 @@ Route::group(['prefix' => 'student'], function () {
     Route::post('/', [StudentController::class, 'create']);
     Route::put('/{id}', [StudentController::class, 'update']);
     Route::delete('/{id}', [StudentController::class, 'delete']);
+});
+
+//Homework ROUTE
+Route::group(['prefix' => 'homework'], function () {
+    Route::get('/', [HomeworkController::class, 'getAll']);
+    Route::get('/{id}', [HomeworkController::class, 'getById']);
+    Route::post('/', [HomeworkController::class, 'create']);
 });
