@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Homework;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -67,10 +68,55 @@ class HomeworkController extends Controller
 
 
         $homework->save();
+        $student = Student::find(4);
+        echo $student;
+        $homework->student()->attach($student);
+
         return $respond = [
             'status' => 200,
             'message' => 'New homework is added',
             'data' => $homework
+        ];
+    }
+
+    // update homeworks 
+
+    public function update(Request $request, $id)
+    {
+        $homework = Homework::find($id);
+
+        if (isset($homework)) {
+            $validation = Validator::make($request->all(), [
+                'teacher_id' => 'required | integer',
+                'title' => 'required |string ',
+                'content' => 'required |string ',
+            ]);
+
+            if ($validation->fails()) {
+                $respond = [
+                    "status" => 401,
+                    "message" => $validation->errors()->first(),
+                ];
+                return $respond;
+            };
+
+            $homework->title =  $request->title;
+            $homework->content =  $request->content;
+            $homework->teacher_id =  $request->teacher_id;
+
+            $homework->save();
+
+
+
+            return $respond = [
+                'status' => 200,
+                'message' => 'the homework updated',
+                'data' => $homework,
+            ];
+        }
+        return $respond = [
+            'status' => 404,
+            'message' => 'the homework isnt updated',
         ];
     }
 }

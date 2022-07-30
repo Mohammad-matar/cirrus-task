@@ -77,7 +77,7 @@ class StudentController extends Controller
             'data' => $student
         ];
     }
-    //Updating stud$student Info
+    //Updating student Info
     public function update(Request $request, $id)
     {
         $student = Student::find($id);
