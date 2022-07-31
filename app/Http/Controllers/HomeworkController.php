@@ -121,4 +121,23 @@ class HomeworkController extends Controller
             'message' => 'the homework isnt updated',
         ];
     }
+
+    //Delete a homework
+    public function delete($id)
+    {
+        $homework = Homework::find($id);
+        if (isset($homework)) {
+            $homework->delete();
+            $respond = [
+                'status' => 200,
+                'message' => 'homework is deleted',
+
+            ];
+            return $respond;
+        }
+        return $respond = [
+            'status' => 404,
+            'message' => 'the homework isnt deleted',
+        ];
+    }
 }

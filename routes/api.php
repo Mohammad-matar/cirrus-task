@@ -44,5 +44,6 @@ Route::group(['prefix' => 'homework'], function () {
     Route::get('/', [HomeworkController::class, 'getAll']);
     Route::get('/{id}', [HomeworkController::class, 'getById']);
     Route::post('/', [HomeworkController::class, 'create']);
-    Route::put('/', [HomeworkController::class, 'update']);
+    Route::put('/{id}', [HomeworkController::class, 'update']);
+    Route::delete('/{id}', [HomeworkController::class, 'delete']);
 });
