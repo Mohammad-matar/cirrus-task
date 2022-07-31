@@ -105,7 +105,9 @@ class HomeworkController extends Controller
             $homework->teacher_id =  $request->teacher_id;
 
             $homework->save();
-
+            $student = Student::find(1);
+            echo $student;
+            $homework->student()->attach($student);
 
 
             return $respond = [
